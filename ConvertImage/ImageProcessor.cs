@@ -49,10 +49,15 @@ namespace ConvertImage
             // uses Magick.Net (The .NET wrapper for the ImageMagick library)
             // URL: https://magick.codeplex.com/
             //
+
+            int w = Convert.ToInt32(width);
+            int h = Convert.ToInt32(height);
+            int magnification = 3;
+
             //convert the image here
             MagickReadSettings settings = new MagickReadSettings();
-            // Settings the density to 600 dpi will create an image with a better quality
-            settings.Density = new Density(600);
+            settings.Width = magnification * w;
+            settings.Height = magnification * h;
 
             // if we are going to resize the image then we need to
             // set OpenCL.IsEnabled = false to resolve the driver related issues;
@@ -62,7 +67,7 @@ namespace ConvertImage
             {
                 //resize the image
                 //When zero is specified for the height, the height will be calculated with the aspect ratio.
-                image.Resize(Convert.ToInt32(width), Convert.ToInt32(height));
+                image.Resize(w, h);
 
                 // Save as jpg/gif
                 image.Write(Path.Combine(outputDirectory, $"{imageFilename}.gif"));
