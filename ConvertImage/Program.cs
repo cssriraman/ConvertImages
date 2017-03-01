@@ -14,8 +14,8 @@ namespace ConvertImage
         static void Main(string[] args)
         {
             ImageProcessor imgProcessor = new ImageProcessor();
-            imgProcessor.ProcessImages(Environment.CurrentDirectory);
-            //imgProcessor.ProcessImagesMultiThreaded(Environment.CurrentDirectory);
+            //imgProcessor.ProcessImages(Environment.CurrentDirectory);
+            imgProcessor.ProcessImagesMultiThreaded(Environment.CurrentDirectory);
         }        
     }
 }

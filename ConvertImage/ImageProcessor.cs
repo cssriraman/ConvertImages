@@ -36,16 +36,10 @@ namespace ConvertImage
             imgHeight = "830";
             Stopwatch s = new Stopwatch();
             s.Start();
-            List<Task> runningTasks = new List<Task>();
-            foreach (string fileStr in Directory.GetFiles(pptImageFolder, "*.EMF"))
+            Parallel.ForEach(Directory.GetFiles(pptImageFolder, "*.EMF"), (string fileStr) =>
             {
-                runningTasks.Add(Task.Factory.StartNew(new Action(() =>
-                {
-                    ConvertImage(fileStr, imgWidth, imgHeight, pptImageFolder, Path.GetFileNameWithoutExtension(fileStr).ToLower());
-                })));
-
-            }
-            Task.WaitAll(runningTasks.ToArray());
+              ConvertImage(fileStr, imgWidth, imgHeight, pptImageFolder, Path.GetFileNameWithoutExtension(fileStr).ToLower());
+            });
             s.Stop();
             Console.WriteLine(s.ElapsedMilliseconds);
         }
